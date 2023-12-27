@@ -19,3 +19,4 @@
 - [Chapter 07 타입 별칭](https://leeseoyun.notion.site/Chapter-07-37ade34a62dc4ed6adc7014ec078f914?pvs=4)
 - [Chapter 08 이넘](https://leeseoyun.notion.site/Chapter-08-609e378cb05d477b87c4a4d18c09bc01?pvs=4)
 - [Chapter 09 클래스](https://leeseoyun.notion.site/Chapter-09-b4bb41b4bfd2417ab8e63308b749b9b5?pvs=4)
+- [Chapter 10 제네릭](https://leeseoyun.notion.site/Chapter-10-d968f023adc94b668718f7774ada5e3e?pvs=4)
