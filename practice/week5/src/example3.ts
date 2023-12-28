@@ -11,7 +11,7 @@ class Person {
     }
 
     protected info():string {
-        return "이름: " + this.#name + " ,전화번호: " + this.#tel + " ,이메일: " + this.#email
+        return " , 이름: " + this.#name + " , 전화번호: " + this.#tel + " , 이메일: " + this.#email
     }
 }
 
@@ -27,7 +27,7 @@ class Professor extends Person {
     }
 
     public professorinfo() {
-        console.log("교수번호: " + this.#professorNumber + this.info() + " ,연구실: " + this.#lab);
+        console.log("교수번호:  " + this.#professorNumber + this.info() + " ,연구실: " + this.#lab);
     }
 
 }
@@ -60,7 +60,7 @@ class Student extends Person {
     }
 
     public studentinfo() {
-        console.log("학번: " + this.#studentNumber + this.info() + " ,학적: ");
+        console.log("학번: " + this.#studentNumber + this.info() + " , 학적: " + this.#status);
     }
 }
 
