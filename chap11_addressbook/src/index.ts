@@ -1,101 +1,106 @@
 interface PhoneNumberDictionary {
-    [phone: string]: {
-        num: number;
-    };
+  [phone: string]: {
+    num: number;
+  };
 }
 
 interface Contact {
-    name: string;
-    address: string;
-    phones: PhoneNumberDictionary;
+  name: string;
+  address: string;
+  phones: PhoneNumberDictionary;
+}
+
+enum PhoneType {
+  Home = 'home',
+  Office = 'office',
+  Studio = 'studio',
 }
 
 // api
-// TODO: 아래 함수의 반환 타입 지정
-function fetchContacts() {
-    // TODO: 아래 속성 타입을 지정
-    const contacts = [
-        {
-            name: "Choonsik",
-            address: "Sebu",
-            phones: {
-                home: {
-                    num: 11111111,
-                },
-                office: {
-                    num: 22222222,
-                },
-            },
+function fetchContacts(): Promise<Contact[]> {
+  const contacts: Contact[] = [
+    {
+      name: 'Choonsik',
+      address: 'Sebu',
+      phones: {
+        home: {
+          num: 11111111,
         },
-        {
-            name: "Ryan",
-            address: "England",
-            phones: {
-                home: {
-                    num: 33333333,
-                },
-            },
+        office: {
+          num: 22222222,
         },
-        {
-            name: "Muji",
-            address: "서울시 강남구",
-            phones: {
-                home: {
-                    num: 44444444,
-                },
-                studio: {
-                    num: 55555555,
-                },
-            },
+      },
+    },
+    {
+      name: 'Ryan',
+      address: 'England',
+      phones: {
+        home: {
+          num: 33333333,
         },
-    ];
+      },
+    },
+    {
+      name: 'Muji',
+      address: '서울시 강남구',
+      phones: {
+        home: {
+          num: 44444444,
+        },
+        studio: {
+          num: 55555555,
+        },
+      },
+    },
+  ];
 
-    return new Promise(resolve => {
-        setTimeout(() => resolve(contacts), 2000);
-    })
+  return new Promise(resolve => {
+    setTimeout(() => resolve(contacts), 2000);
+  });
 }
 
+// main
 class AddressBook {
-    // TODO: 아래 속성 타입을 지정
-    contacts = [];
+  contacts: Contact[] = [];
 
-    constructor() {
-        this.fetchData();
-    }
+  constructor() {
+    this.fetchData();
+  }
 
-    fetchData() {
-        fetchContacts().then(response => {
-            this.contacts = response;
-        });
-    }
+  fetchData(): void {
+    fetchContacts().then(response => {
+      this.contacts = response;
+    });
+  }
 
-    /* TODO: 아래 함수들 파라미터 타입과 반환 타입 지정 */
-    findContactByName(name) {
-        return this.contacts.filter(contact => contact.name === name);
-    }
+  findContactByName(name: string): Contact[] {
+    return this.contacts.filter(contact => contact.name === name);
+  }
 
-    findContactByAddress(address) {
-        return this.contacts.filter(contact => contact.address === address);
-    }
+  findContactByAddress(address: string): Contact[] {
+    return this.contacts.filter(contact => contact.address === address);
+  }
 
-    findContactByPhone(phoneNumber, phoneType: string) {
-        return this.contacts.filter(
-            contact => contact.phones[phoneType].num === phoneNumber
-        );
-    }
+  findContactByPhone(phoneNumber: number, phoneType: PhoneType): Contact[] {
+    return this.contacts.filter(
+      contact => contact.phones[phoneType].num === phoneNumber
+    );
+  }
 
-    addContact(contact) {
-        this.contacts.push(contact);
-    }
+  addContact(contact: Contact): void {
+    this.contacts.push(contact);
+  }
 
-    displayListByName() {
-        return this.contacts.map(contact => contact.name);
-    }
+  displayListByName(): string[] {
+    return this.contacts.map(contact => contact.name);
+  }
 
-    displayListByAddress() {
-        return this.contacts.map(contact => contact.address);
-    }
-    /*--------------------------------------------------------*/
+  displayListByAddress(): string[] {
+    return this.contacts.map(contact => contact.address);
+  }
 }
 
-new AddressBook();
+const book = new AddressBook();
+// book.findContactByPhone(11111111, 'home');
+// book.findContactByPhone(11111111, 'homee');
+book.findContactByPhone(123, PhoneType.Home);

@@ -3,8 +3,15 @@
     "allowJs": true,
     "checkJs": true,
     "target": "ES5",
-    "lib": ["es2015", "dom", "dom.iterable"],
-    "noImplicitAny": false
+    "lib": [
+      "es2015",
+      "dom",
+      "dom.iterable"
+    ],
+    "noImplicitAny": true,
+    "strict": true
   },
-  "include": ["./src/**/*"]
+  "include": [
+    "./src/**/*"
+  ]
 }
