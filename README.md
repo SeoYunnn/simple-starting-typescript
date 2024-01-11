@@ -20,3 +20,6 @@
 - [Chapter 08 이넘](https://leeseoyun.notion.site/Chapter-08-609e378cb05d477b87c4a4d18c09bc01?pvs=4)
 - [Chapter 09 클래스](https://leeseoyun.notion.site/Chapter-09-b4bb41b4bfd2417ab8e63308b749b9b5?pvs=4)
 - [Chapter 10 제네릭](https://leeseoyun.notion.site/Chapter-10-d968f023adc94b668718f7774ada5e3e?pvs=4)
+- [Chapter 11 두 번째 프로젝트: 전화번호부 앱](https://leeseoyun.notion.site/Chapter-11-6d5de6b76fec47a5b66db71c909392aa?pvs=4)
+- [Chapter 12 타입 추론](https://leeseoyun.notion.site/Chapter-12-10f97b2c061640de9b05609303bb621a?pvs=4)
+- [Chatper 13 타입 단언](https://leeseoyun.notion.site/Chapter-13-312b980f599c46d69fde87a3a4aebb31?pvs=4)
