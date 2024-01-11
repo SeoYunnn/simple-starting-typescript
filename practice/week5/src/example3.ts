@@ -1,78 +1,147 @@
-// 부모 클래스
-class Person {
-    #name: string;
-    #tel: string;
-    #email: string;
+type ProfessorNumber = string;
+type EmployeeNumber = string;
+type StudentNumber = string;
+type Locate = string;
+type Rank = string;
 
-    constructor(name: string, tel: string, email: string) {
-        this.#name = name;
-        this.#tel = tel;
-        this.#email = email;
+type PrintType<T> = Professor<T> | Employee<T> | Student<T>;
+
+class Member<T> {
+    protected id: T;
+    protected name: string;
+    protected phoneNumber: string;
+    protected email: string;
+
+    constructor(
+        id: T,
+        name: string,
+        phoneNumber: string,
+        email: string,
+    ) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 
-    protected info():string {
-        return " , 이름: " + this.#name + " , 전화번호: " + this.#tel + " , 이메일: " + this.#email
+    getInfo() {
+        return {
+            id: this.id,
+            name: this.name,
+            phoneNumber: this.phoneNumber,
+            email: this.email,
+        };
     }
 }
 
-// Professor 클래스
-class Professor extends Person {
-    #professorNumber: number;
-    #lab: string;
+class Professor<T> extends Member<T> {
+    #lab: Locate;
 
-    constructor(professorNumber: number, name: string, phoneNumber: string, email: string, lab: string) {
-        super(name, phoneNumber, email);
-        this.#professorNumber = professorNumber;
+    constructor(
+        id: T,
+        name: string,
+        phoneNumber: string,
+        email: string,
+        lab: Locate,
+    ) {
+        super(id, name, phoneNumber, email);
         this.#lab = lab;
     }
 
-    public professorinfo() {
-        console.log("교수번호:  " + this.#professorNumber + this.info() + " ,연구실: " + this.#lab);
+    getInfo() {
+        return {
+            ...super.getInfo(),
+            lab: this.#lab,
+        };
     }
-
 }
 
-// Employee 클래스
-class Employee extends Person {
-    #employeeNumber: number;
-    #office: string;
+class Employee<T> extends Member<T> {
+    #office: Locate;
 
-    constructor(employeeNumber: number, name: string, phoneNumber: string, email: string, office: string) {
-        super(name, phoneNumber, email);
-        this.#employeeNumber = employeeNumber;
+    constructor(
+        id: T,
+        name: string,
+        phoneNumber: string,
+        email: string,
+        office: Locate,
+    ) {
+        super(id, name, phoneNumber, email);
         this.#office = office;
     }
 
-    public employeeinfo() {
-        console.log("직원번호: " + this.#employeeNumber + this.info() + " ,사무실: " + this.#office);
+    getInfo() {
+        return {
+            ...super.getInfo(),
+            office: this.#office,
+        };
     }
 }
 
-// Student 클래스
-class Student extends Person {
-    #studentNumber: number;
-    #status: string;
+class Student<T> extends Member<T> {
+    #academicRecord: Rank;
 
-    constructor(studentNumber: number, name: string, phoneNumber: string, email: string, status: string) {
-        super(name, phoneNumber, email);
-        this.#studentNumber = studentNumber;
-        this.#status = status;
+    constructor(
+        id: T,
+        name: string,
+        phoneNumber: string,
+        email: string,
+        academicRecord: Rank,
+    ) {
+        super(id, name, phoneNumber, email);
+        this.#academicRecord = academicRecord;
     }
 
-    public studentinfo() {
-        console.log("학번: " + this.#studentNumber + this.info() + " , 학적: " + this.#status);
+    getInfo() {
+        return {
+            ...super.getInfo(),
+            academicRecord: this.#academicRecord,
+        };
     }
 }
 
-// 객체 생성 및 출력
-const professor = new Professor(1, "라이언", "010-1234-1234", "ryan@kakao.com", "kakao");
-professor.professorinfo();
+function printInfo<T>(info: PrintType<T>): void {
+    console.log(info);
+}
 
-const employee = new Employee(2, "춘식이", "010-1234-4567", "choonsik@kakao.com", "kakaofriends");
-employee.employeeinfo();
+const professor = new Professor
+(
+    "1",
+    "Kim",
+    "010-1234-1234",
+    "Kim@wisoft.io",
+    "N5-503",
+);
 
-const student = new Student(3, "프로도", "010-1234-5678", "prodo@kakao.com", "학부생");
-student.studentinfo();
 
-const student2 = new Student(4, "무지", "010-1234-5678", "muji@kakao.com", "대학원생");
-student2.studentinfo();
+const employee = new Employee
+(
+    "2",
+    "Hong",
+    "010-1234-4567",
+    "Hong@wisoft.io",
+    "N5-511",
+);
+
+const student = new Student
+(
+    "3",
+    "Bae",
+    "010-1234-5678",
+    "Bae@wisoft.io",
+    "학부생",
+);
+
+const student2 = new Student
+(
+    "4",
+    "Ahn",
+    "010-1324-5670",
+    "Ahn@wisoft.io",
+    "대학원생",
+);
+
+printInfo(professor.getInfo() as unknown as PrintType<ProfessorNumber>);
+
+// Class 구조 그대로 출력
+printInfo(professor);
