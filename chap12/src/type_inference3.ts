@@ -1,4 +1,4 @@
-function getA(a: number) {
+function getB(a: number) {
     let c = 'hi';
     return a + c;
 }
