@@ -23,3 +23,5 @@
 - [Chapter 11 두 번째 프로젝트: 전화번호부 앱](https://leeseoyun.notion.site/Chapter-11-6d5de6b76fec47a5b66db71c909392aa?pvs=4)
 - [Chapter 12 타입 추론](https://leeseoyun.notion.site/Chapter-12-10f97b2c061640de9b05609303bb621a?pvs=4)
 - [Chatper 13 타입 단언](https://leeseoyun.notion.site/Chapter-13-312b980f599c46d69fde87a3a4aebb31?pvs=4)
+- [Chapter 14 타입 가드](https://leeseoyun.notion.site/Chapter-14-3e0bd92fe01e4338820e65be95d3083d?pvs=4)
+- [Chapter 15 타입 호환](https://leeseoyun.notion.site/Chapter-15-f371ad62c1114448bb44b664341f2e90?pvs=4)
