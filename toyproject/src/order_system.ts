@@ -18,19 +18,35 @@ export function processOrder(readline: any, menu: MenuCategory[], orderedItems: 
 }
 
 // 주문 처리
+// 수정 전
+// function placeOrder(menu: MenuCategory[], categoryIndex: number, itemIndex: number): MenuItem | undefined {
+//     const category = menu[categoryIndex];
+//     if (category && category.items[itemIndex]) {
+//         const orderedItem = category.items[itemIndex];
+//         log("\n주문이 완료되었습니다:");
+//         log(`항목: ${orderedItem.name}`);
+//         log(`가격: ${orderedItem.price}원`);
+//         log(`설명: ${orderedItem.description}`);
+//         return orderedItem;
+//     } else {
+//         log("주문할 항목을 찾을 수 없습니다.");
+//         return undefined;
+//     }
+// }
+
+// 수정 후
 function placeOrder(menu: MenuCategory[], categoryIndex: number, itemIndex: number): MenuItem | undefined {
     const category = menu[categoryIndex];
-    if (category && category.items[itemIndex]) {
-        const orderedItem = category.items[itemIndex];
+    const orderedItem = category?.items[itemIndex];
+    if(orderedItem) {
         log("\n주문이 완료되었습니다:");
         log(`항목: ${orderedItem.name}`);
         log(`가격: ${orderedItem.price}원`);
         log(`설명: ${orderedItem.description}`);
-        return orderedItem;
     } else {
         log("주문할 항목을 찾을 수 없습니다.");
-        return undefined;
     }
+    return orderedItem;
 }
 
 // 더 주문할지 물어보는 함수
@@ -47,21 +63,25 @@ function askForMore(readline: any, orderedItems: MenuItem[], menu: MenuCategory[
 }
 
 // 주문한 항목들의 총 가격을 계산
+// 수정 전
+// function calculateTotalPrice(orderedItems: MenuItem[]): number {
+//     let totalPrice = 0;
+//     orderedItems.forEach(item => {
+//         totalPrice += item.price;
+//     });
+//     return totalPrice;
+// }
+
+// 수정 후
 function calculateTotalPrice(orderedItems: MenuItem[]): number {
-    let totalPrice = 0;
-    orderedItems.forEach(item => {
-        totalPrice += item.price;
-    });
-    return totalPrice;
+    return orderedItems.reduce((totalPrice, item) => totalPrice + item.price, 0);
 }
 
 // 모든 주문이 완료되었을 경우
 function completeOrder(orderedItems: MenuItem[]) {
-    log(`주문이 완료되었습니다. 잠시 기다려주세요...`);
-    log("\n주문 내역:");
+    log(`\n주문이 완료되었습니다. 잠시 기다려주세요...\n주문 내역:`);
     orderedItems.forEach(item => {
         log(`${item.name} - 가격: ${item.price}원`);
     });
-    log(`총 가격: ${calculateTotalPrice(orderedItems)}원`);
+    log(`\n총 가격: ${calculateTotalPrice(orderedItems)}원`);
 }
-
