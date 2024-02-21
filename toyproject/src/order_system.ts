@@ -1,4 +1,4 @@
-import { MenuCategory, MenuItem } from "./menu";
+import {MenuCategory, MenuItem} from "./menu";
 import order from "./order";
 
 // 메뉴판
@@ -40,16 +40,22 @@ export function placeOrder(menu: MenuCategory[], categoryIndex: number, itemInde
 // 더 주문할지 물어보는 함수
 export function askForMore(readline: any, orderedItems: MenuItem[], menu: MenuCategory[]) {
     readline.question("더 주문하시겠습니까? (y/n): ", (response: string) => {
-        if (response.toLowerCase() === 'y') {
+        const isMoreOrder = response.toLowerCase() === 'y';
+        if (isMoreOrder) {
             order(menu);
         } else {
-            console.log(`주문이 완료되었습니다. 잠시 기다려주세요...`);
-            console.log("\n주문 내역:");
-            orderedItems.forEach(item => {
-                console.log(`${item.name} - 가격: ${item.price}원`);
-            });
-            console.log(`총 가격: ${calculateTotalPrice(orderedItems)}원`);
+            completeOrder(orderedItems);
             readline.close();
         }
     });
+}
+
+// 모든 주문이 완료되었을 경우
+function completeOrder(orderedItems: MenuItem[]) {
+    console.log(`주문이 완료되었습니다. 잠시 기다려주세요...`);
+    console.log("\n주문 내역:");
+    orderedItems.forEach(item => {
+        console.log(`${item.name} - 가격: ${item.price}원`);
+    });
+    console.log(`총 가격: ${calculateTotalPrice(orderedItems)}원`);
 }
