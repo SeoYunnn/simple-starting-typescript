@@ -1,4 +1,4 @@
-import { showMenu, placeOrder, askForMore} from './order_system';
+import {showMenu, placeOrder, askForMore, processOrder} from './order_system';
 import { MenuCategory, MenuItem } from './menu';
 
 // 주문한 항목들을 저장할 배열
@@ -24,17 +24,7 @@ function order(menu: MenuCategory[]) {
                 order(menu);
                 break;
             case '1':
-                readline.question("\n주문할 카테고리 번호를 선택해주세요: ", (categoryIdx: string) => {
-                    const categoryIndex = parseInt(categoryIdx) - 1;
-                    readline.question("\n주문할 항목 번호를 선택해주세요: ", (itemIdx: string) => {
-                        const itemIndex = parseInt(itemIdx) - 1;
-                        const orderedItem = placeOrder(menu, categoryIndex, itemIndex); // 주문 처리 함수 호출
-                        if (orderedItem) {
-                            orderedItems.push(orderedItem); // 주문된 항목 배열에 추가
-                        }
-                        askForMore(readline, orderedItems, menu); // 더 주문할지 물어보는 함수 호출
-                    });
-                });
+                processOrder(readline, menu, orderedItems);
                 break;
             case '2':
                 console.log("프로그램을 종료합니다.");

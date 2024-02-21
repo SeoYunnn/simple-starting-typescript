@@ -12,13 +12,19 @@ export function showMenu(menu: MenuCategory[]) {
     });
 }
 
-// 주문한 항목들의 총 가격을 계산
-export function calculateTotalPrice(orderedItems: MenuItem[]): number {
-    let totalPrice = 0;
-    orderedItems.forEach(item => {
-        totalPrice += item.price;
+// 주문
+export function processOrder(readline: any, menu: MenuCategory[], orderedItems: MenuItem[]) {
+    readline.question("\n주문할 카테고리 번호를 선택해주세요: ", (categoryIdx: string) => {
+        const categoryIndex = parseInt(categoryIdx) - 1;
+        readline.question("\n주문할 항목 번호를 선택해주세요: ", (itemIdx: string) => {
+            const itemIndex = parseInt(itemIdx) - 1;
+            const orderedItem = placeOrder(menu, categoryIndex, itemIndex); // 주문 처리 함수 호출
+            if (orderedItem) {
+                orderedItems.push(orderedItem); // 주문된 항목 배열에 추가
+            }
+            askForMore(readline, orderedItems, menu); // 더 주문할지 물어보는 함수 호출
+        });
     });
-    return totalPrice;
 }
 
 // 주문 처리
@@ -50,6 +56,15 @@ export function askForMore(readline: any, orderedItems: MenuItem[], menu: MenuCa
     });
 }
 
+// 주문한 항목들의 총 가격을 계산
+export function calculateTotalPrice(orderedItems: MenuItem[]): number {
+    let totalPrice = 0;
+    orderedItems.forEach(item => {
+        totalPrice += item.price;
+    });
+    return totalPrice;
+}
+
 // 모든 주문이 완료되었을 경우
 function completeOrder(orderedItems: MenuItem[]) {
     console.log(`주문이 완료되었습니다. 잠시 기다려주세요...`);
@@ -59,3 +74,4 @@ function completeOrder(orderedItems: MenuItem[]) {
     });
     console.log(`총 가격: ${calculateTotalPrice(orderedItems)}원`);
 }
+
