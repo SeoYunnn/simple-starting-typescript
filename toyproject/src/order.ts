@@ -1,21 +1,22 @@
-import {showMenu, placeOrder, askForMore, processOrder} from './order_system';
-import { MenuCategory, MenuItem } from './menu';
+import {MenuCategory, MenuItem} from './menu';
+import {showMenu} from "./menu_system";
+import {processOrder} from './order_system';
+import {log} from './log';
+
+const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
 // 주문한 항목들을 저장할 배열
 const orderedItems: MenuItem[] = [];
 
 // 주문 함수 실행
 function order(menu: MenuCategory[]) {
-    console.log("\n=====춘식스시=====");
-    console.log("0. 메뉴판 보기");
-    console.log("1. 주문");
-    console.log("2. 종료");
-    console.log("================\n");
-
-    const readline = require('readline').createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
+    log("\n=====춘식스시=====");
+    log("0. 메뉴판 보기");
+    log("1. 주문");
+    log("2. 종료");
 
     readline.question("번호를 선택해주세요:", (choice: string) => {
         switch (choice) {
