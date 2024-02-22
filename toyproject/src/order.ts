@@ -2,8 +2,12 @@ import {MenuCategory, MenuItem} from './menu';
 import {showMenu} from "./menu_system";
 import {processOrder} from './order_system';
 import {log} from './log';
+import * as readline from "node:readline";
 
-const readline = require('readline').createInterface({
+// Promise 접근해보자
+// import * as readline from "node:readline/promises";
+
+const rl =readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
@@ -18,18 +22,18 @@ function order(menu: MenuCategory[]) {
     log("1. 주문");
     log("2. 종료");
 
-    readline.question("번호를 선택해주세요:", (choice: string) => {
+    rl.question("번호를 선택해주세요:", (choice: string) => {
         switch (choice) {
             case '0':
                 showMenu(menu);
                 order(menu);
                 break;
             case '1':
-                processOrder(readline, menu, orderedItems);
+                processOrder(menu, orderedItems);
                 break;
             case '2':
                 console.log("프로그램을 종료합니다.");
-                readline.close();
+                rl.close();
                 break;
             default:
                 console.log("올바른 번호를 선택해주세요.");

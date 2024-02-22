@@ -1,18 +1,24 @@
 import {MenuCategory, MenuItem} from "./menu";
 import order from "./order";
 import {log} from "./log";
+import * as readline from "node:readline";
+
+const rl =readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
 
 // 주문
-export function processOrder(readline: any, menu: MenuCategory[], orderedItems: MenuItem[]) {
-    readline.question("\n주문할 카테고리 번호를 선택해주세요: ", (categoryIdx: string) => {
+export function processOrder(menu: MenuCategory[], orderedItems: MenuItem[]) {
+    rl.question("\n주문할 카테고리 번호를 선택해주세요: ", (categoryIdx: string) => {
         const categoryIndex = parseInt(categoryIdx) - 1;
-        readline.question("\n주문할 항목 번호를 선택해주세요: ", (itemIdx: string) => {
+        rl.question("\n주문할 항목 번호를 선택해주세요: ", (itemIdx: string) => {
             const itemIndex = parseInt(itemIdx) - 1;
             const orderedItem = placeOrder(menu, categoryIndex, itemIndex); // 주문 처리 함수 호출
             if (orderedItem) {
                 orderedItems.push(orderedItem); // 주문된 항목 배열에 추가
             }
-            askForMore(readline, orderedItems, menu); // 더 주문할지 물어보는 함수 호출
+            askForMore(orderedItems, menu); // 더 주문할지 물어보는 함수 호출
         });
     });
 }
@@ -42,7 +48,8 @@ function placeOrder(menu: MenuCategory[], categoryIndex: number, itemIndex: numb
         log("\n주문이 완료되었습니다:");
         log(`항목: ${orderedItem.name}`);
         log(`가격: ${orderedItem.price}원`);
-        log(`설명: ${orderedItem.description}`);
+        log(`설명: ${orderedItem.description}\n`
+        );
     } else {
         log("주문할 항목을 찾을 수 없습니다.");
     }
@@ -50,14 +57,14 @@ function placeOrder(menu: MenuCategory[], categoryIndex: number, itemIndex: numb
 }
 
 // 더 주문할지 물어보는 함수
-function askForMore(readline: any, orderedItems: MenuItem[], menu: MenuCategory[]) {
-    readline.question("더 주문하시겠습니까? (y/n): ", (response: string) => {
+function askForMore(orderedItems: MenuItem[], menu: MenuCategory[]) {
+    rl.question("더 주문하시겠습니까? (y/n): ", (response: string) => {
         const isMoreOrder = response.toLowerCase() === 'y';
         if (isMoreOrder) {
             order(menu);
         } else {
             completeOrder(orderedItems);
-            readline.close();
+            rl.close();
         }
     });
 }
